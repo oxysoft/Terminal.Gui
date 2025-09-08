@@ -39,6 +39,7 @@ namespace Terminal.Gui.App;
 /// <remarks></remarks>
 public static partial class Application
 {
+    public static ApplicationOptions? Options { get; private set; }
     /// <summary>Gets all cultures supported by the application without the invariant language.</summary>
     public static List<CultureInfo>? SupportedCultures { get; private set; } = GetSupportedCultures ();
 

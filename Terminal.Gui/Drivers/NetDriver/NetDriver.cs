@@ -280,8 +280,11 @@ internal class NetDriver : ConsoleDriver
             Cols = Console.WindowWidth;
             Rows = Console.WindowHeight;
 
-            //Enable alternative screen buffer.
-            Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
+            //Enable alternative screen buffer per options
+            if (Application.Options?.UseAlternateScreenBuffer == true)
+            {
+                Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
+            }
 
             //Set cursor key to application.
             Console.Out.Write (EscSeqUtils.CSI_HideCursor);
@@ -373,8 +376,11 @@ internal class NetDriver : ConsoleDriver
         {
             Console.ResetColor ();
 
-            //Disable alternative screen buffer.
-            Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
+            //Disable alternative screen buffer per options
+            if (Application.Options?.UseAlternateScreenBuffer == true)
+            {
+                Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
+            }
 
             //Set cursor key to cursor.
             Console.Out.Write (EscSeqUtils.CSI_ShowCursor);
@@ -526,7 +532,10 @@ internal class NetDriver : ConsoleDriver
     {
         if (!RunningUnitTests)
         {
-            Console.Out.Write (EscSeqUtils.CSI_EnableMouseEvents);
+            if (Application.Options?.MouseTracking != MouseTrackingMode.None)
+            {
+                Console.Out.Write (EscSeqUtils.CSI_EnableMouseEvents);
+            }
         }
     }
 

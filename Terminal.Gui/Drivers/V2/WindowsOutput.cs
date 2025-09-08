@@ -117,8 +117,8 @@ internal partial class WindowsOutput : OutputBase, IConsoleOutput
 
         if (_isVirtualTerminal)
         {
-            //Enable alternative screen buffer (opt-out via HOHO_TUI_ALTBUF)
-            if (EscSeqUtils.UseAlternateBuffer)
+            //Enable alternative screen buffer per options
+            if (Application.Options?.UseAlternateScreenBuffer == true)
             {
                 Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
             }
