@@ -117,6 +117,16 @@ public static class EscSeqUtils
     public static readonly string CSI_EnableUrxvtExtModeMouse = CSI + "?1015h";
 
     /// <summary>
+    ///     ESC [ ? 2004 h - Enable bracketed paste mode.
+    /// </summary>
+    public static readonly string CSI_EnableBracketedPaste = CSI + "?2004h";
+
+    /// <summary>
+    ///     ESC [ ? 2004 l - Disable bracketed paste mode.
+    /// </summary>
+    public static readonly string CSI_DisableBracketedPaste = CSI + "?2004l";
+
+    /// <summary>
     ///     ESC [ ? 1047 l - Restore xterm working buffer (with backscroll)
     /// </summary>
     /// <remarks>

@@ -40,6 +40,15 @@ namespace Terminal.Gui.App;
 public static partial class Application
 {
     public static ApplicationOptions? Options { get; private set; }
+
+    public static bool IsInBracketedPaste { get; internal set; }
+    public static event EventHandler<bool>? BracketedPasteChanged;
+    internal static void SetBracketedPaste (bool on)
+    {
+        if (IsInBracketedPaste == on) return;
+        IsInBracketedPaste = on;
+        try { BracketedPasteChanged?.Invoke (null, on); } catch { }
+    }
     /// <summary>Gets all cultures supported by the application without the invariant language.</summary>
     public static List<CultureInfo>? SupportedCultures { get; private set; } = GetSupportedCultures ();
 

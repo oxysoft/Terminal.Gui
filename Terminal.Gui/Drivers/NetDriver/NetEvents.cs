@@ -260,6 +260,13 @@ internal class NetEvents : IDisposable
                                   (f, p) => HandleMouseEvent (MapMouseFlags (f), p)
                                  );
 
+        // Handle bracketed paste delimiters: CSI 200~ (begin), CSI 201~ (end)
+        if (c1Control == "CSI" && terminating == "~" && values is { Length: > 0 })
+        {
+            if (values[0] == "200") { Application.SetBracketedPaste(true); return; }
+            if (values[0] == "201") { Application.SetBracketedPaste(false); return; }
+        }
+
         if (isMouse)
         {
             foreach (MouseFlags mf in mouseFlags)

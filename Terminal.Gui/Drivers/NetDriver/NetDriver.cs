@@ -306,6 +306,12 @@ internal class NetDriver : ConsoleDriver
 
             //Set cursor key to application.
             Console.Out.Write (EscSeqUtils.CSI_HideCursor);
+
+            // Enable bracketed paste if requested
+            if (Application.Options?.EnableBracketedPaste == true)
+            {
+                try { Console.Out.Write (EscSeqUtils.CSI_EnableBracketedPaste); } catch { }
+            }
         }
         else
         {
@@ -403,6 +409,12 @@ internal class NetDriver : ConsoleDriver
             //Set cursor key to cursor.
             Console.Out.Write (EscSeqUtils.CSI_ShowCursor);
             try { Console.Out.Flush (); } catch { }
+
+            // Disable bracketed paste if we enabled it
+            if (Application.Options?.EnableBracketedPaste == true)
+            {
+                try { Console.Out.Write (EscSeqUtils.CSI_DisableBracketedPaste); } catch { }
+            }
         }
     }
 

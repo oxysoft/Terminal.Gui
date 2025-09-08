@@ -7,6 +7,7 @@ public sealed class ApplicationOptions
     public MouseTrackingMode MouseTracking { get; init; } = MouseTrackingMode.Basic;
     public bool RestoreConsoleOnExit { get; init; } = true;
     public bool ClearOnInit { get; init; } = false;
+    public bool EnableBracketedPaste { get; init; } = true;
 }
 
 public enum MouseTrackingMode
@@ -16,4 +17,3 @@ public enum MouseTrackingMode
     AnyEvent,
     Sgr,
 }
-
