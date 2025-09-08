@@ -292,6 +292,16 @@ internal class NetDriver : ConsoleDriver
                 Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
                 Console.Out.Write (EscSeqUtils.CSI_RestoreAltBufferWithBackscroll); // 1047l
                 try { Console.Out.Write ("\x1b[?47l"); } catch { }
+                // Optional: clear by scrolling so previous content remains in scrollback
+                if (Application.Options?.ClearOnInit == true)
+                {
+                    try
+                    {
+                        for (int i = 0; i < Rows; i++) Console.Out.Write('\n');
+                        Console.Out.Write("\x1b[H"); // move cursor to 1;1
+                    }
+                    catch { }
+                }
             }
 
             //Set cursor key to application.
