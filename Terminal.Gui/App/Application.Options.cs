@@ -8,6 +8,7 @@ public sealed class ApplicationOptions
     public bool RestoreConsoleOnExit { get; init; } = true;
     public bool ClearOnInit { get; init; } = false;
     public bool EnableBracketedPaste { get; init; } = true;
+    public bool EnableFrameBufferFlush { get; init; } = false;
 }
 
 public enum MouseTrackingMode
