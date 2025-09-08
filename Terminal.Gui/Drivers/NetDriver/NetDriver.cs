@@ -280,10 +280,18 @@ internal class NetDriver : ConsoleDriver
             Cols = Console.WindowWidth;
             Rows = Console.WindowHeight;
 
-            //Enable alternative screen buffer per options
+            // Ensure we are in the desired screen buffer mode
             if (Application.Options?.UseAlternateScreenBuffer == true)
             {
+                // Enable alternate screen buffer
                 Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
+            }
+            else
+            {
+                // Force restore to main buffer (with backscroll)
+                Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
+                Console.Out.Write (EscSeqUtils.CSI_RestoreAltBufferWithBackscroll); // 1047l
+                try { Console.Out.Write ("\x1b[?47l"); } catch { }
             }
 
             //Set cursor key to application.
