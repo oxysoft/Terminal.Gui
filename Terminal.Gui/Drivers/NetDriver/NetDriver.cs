@@ -30,15 +30,21 @@ internal class NetDriver : ConsoleDriver
             Console.Clear ();
 
             //Disable alternative screen buffer.
-            Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
+            if (EscSeqUtils.UseAlternateBuffer)
+            {
+                Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
+            }
 
             //Set cursor key to cursor.
             Console.Out.Write (EscSeqUtils.CSI_ShowCursor);
 
             Platform.Suspend ();
 
-            //Enable alternative screen buffer.
-            Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
+            //Enable alternative screen buffer (opt-out via HOHO_TUI_ALTBUF)
+            if (EscSeqUtils.UseAlternateBuffer)
+            {
+                Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
+            }
 
             SetContentsAsDirty ();
             Refresh ();
@@ -372,7 +378,7 @@ internal class NetDriver : ConsoleDriver
 
             //Set cursor key to cursor.
             Console.Out.Write (EscSeqUtils.CSI_ShowCursor);
-            Console.Out.Close ();
+            try { Console.Out.Flush (); } catch { }
         }
     }
 

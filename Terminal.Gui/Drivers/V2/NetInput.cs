@@ -40,8 +40,11 @@ public class NetInput : ConsoleInput<ConsoleKeyInfo>, INetInput
             }
         }
 
-        //Enable alternative screen buffer.
-        Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
+        //Enable alternative screen buffer (opt-out via HOHO_TUI_ALTBUF)
+        if (EscSeqUtils.UseAlternateBuffer)
+        {
+            Console.Out.Write (EscSeqUtils.CSI_SaveCursorAndActivateAltBufferNoBackscroll);
+        }
 
         //Set cursor key to application.
         Console.Out.Write (EscSeqUtils.CSI_HideCursor);
@@ -77,7 +80,10 @@ public class NetInput : ConsoleInput<ConsoleKeyInfo>, INetInput
         Console.Out.Write (EscSeqUtils.CSI_DisableMouseEvents);
 
         //Disable alternative screen buffer.
-        Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
+        if (EscSeqUtils.UseAlternateBuffer)
+        {
+            Console.Out.Write (EscSeqUtils.CSI_RestoreCursorAndRestoreAltBufferWithBackscroll);
+        }
 
         //Set cursor key to cursor.
         Console.Out.Write (EscSeqUtils.CSI_ShowCursor);

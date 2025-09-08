@@ -21,6 +21,21 @@ namespace Terminal.Gui.Drivers;
 /// </remarks>
 public static class EscSeqUtils
 {
+    // Allow host apps to opt out of using the terminal's alternate screen buffer.
+    // Set HOHO_TUI_ALTBUF to 0/false/no to disable. Default: disabled.
+    private static readonly bool _useAlternateBuffer = ReadAltBufEnv();
+    private static bool ReadAltBufEnv()
+    {
+        try
+        {
+            var s = Environment.GetEnvironmentVariable("HOHO_TUI_ALTBUF");
+            if (string.IsNullOrWhiteSpace(s)) return false;
+            s = s.Trim().ToLowerInvariant();
+            return !(s == "0" || s == "false" || s == "no");
+        }
+        catch { return false; }
+    }
+    internal static bool UseAlternateBuffer => _useAlternateBuffer;
     // TODO: One type per file - Move this enum to a separate file.
     /// <summary>
     ///     Options for ANSI ESC "[xJ" - Clears part of the screen.
