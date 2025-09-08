@@ -55,6 +55,7 @@ internal class NetDriver : ConsoleDriver
 
     public override bool UpdateScreen ()
     {
+        Terminal.Gui.Diagnostics.PerfMetrics.FrameBegin();
         bool updated = false;
         if (RunningUnitTests
             || _winSizeChanging
@@ -198,6 +199,7 @@ internal class NetDriver : ConsoleDriver
             {
                 SetCursorPosition (lastCol, row);
                 Console.Write (output);
+                Terminal.Gui.Diagnostics.PerfMetrics.FrameAddOutput(output.Length);
             }
 
             foreach (var s in Application.Sixel)
@@ -206,6 +208,7 @@ internal class NetDriver : ConsoleDriver
                 {
                     SetCursorPosition (s.ScreenPosition.X, s.ScreenPosition.Y);
                     Console.Write (s.SixelData);
+                    Terminal.Gui.Diagnostics.PerfMetrics.FrameAddOutput(s.SixelData.Length);
                 }
             }
         }
@@ -218,11 +221,13 @@ internal class NetDriver : ConsoleDriver
         {
             SetCursorPosition (lastCol, row);
             Console.Write (output);
+            Terminal.Gui.Diagnostics.PerfMetrics.FrameAddOutput(output.Length);
             output.Clear ();
             lastCol += outputWidth;
             outputWidth = 0;
         }
 
+        Terminal.Gui.Diagnostics.PerfMetrics.FrameEnd();
         return updated;
     }
     #region Init/End/MainLoop
