@@ -76,15 +76,7 @@ public sealed class VirtualLogView : View
         return true;
     }
 
-    public override bool ProcessHotKey(Key keyEvent)
-    {
-        if (keyEvent == Key.PageDown) { Page(1); return true; }
-        if (keyEvent == Key.PageUp) { Page(-1); return true; }
-        if (keyEvent == Key.CursorDown) { Line(1); return true; }
-        if (keyEvent == Key.CursorUp) { Line(-1); return true; }
-        if (keyEvent == (Key.CtrlMask | Key.End)) { ScrollToEnd(); SetNeedsDraw(); return true; }
-        return base.ProcessHotKey(keyEvent);
-    }
+    // Keyboard handling can be added via KeyBindings externally if needed.
 
     private void Line(int delta)
     {
@@ -101,4 +93,3 @@ public sealed class VirtualLogView : View
         SetNeedsDraw();
     }
 }
-
