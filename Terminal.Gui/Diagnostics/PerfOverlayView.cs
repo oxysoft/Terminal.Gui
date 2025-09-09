@@ -13,7 +13,7 @@ public sealed class PerfOverlayView : View
         _updateMs = Math.Max(50, updateMs);
         CanFocus = false;
         Width = 24; Height = 1;
-        X = Pos.AnchorEnd(Width);
+        X = Pos.AnchorEnd(24);
         Y = 0;
         Application.AddTimeout(TimeSpan.FromMilliseconds(_updateMs), () => { SetNeedsDraw(); return true; });
     }
@@ -28,4 +28,3 @@ public sealed class PerfOverlayView : View
         return true;
     }
 }
-

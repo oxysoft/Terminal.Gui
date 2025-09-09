@@ -150,21 +150,15 @@ internal class NetDriver : ConsoleDriver
                         }
                         else
                         {
-                            output.Append (
-                                           EscSeqUtils.CSI_SetForegroundColorRGB (
-                                                                                  attr.Foreground.R,
-                                                                                  attr.Foreground.G,
-                                                                                  attr.Foreground.B
-                                                                                 )
-                                          );
-
-                            output.Append (
-                                           EscSeqUtils.CSI_SetBackgroundColorRGB (
-                                                                                  attr.Background.R,
-                                                                                  attr.Background.G,
-                                                                                  attr.Background.B
-                                                                                 )
-                                          );
+                            output.Append (EscSeqUtils.CSI_SetForegroundColorRGB (attr.Foreground.R, attr.Foreground.G, attr.Foreground.B));
+                            if (Application.UseDefaultBackground)
+                            {
+                                output.Append (EscSeqUtils.CSI_SetGraphicsRendition(49));
+                            }
+                            else
+                            {
+                                output.Append (EscSeqUtils.CSI_SetBackgroundColorRGB (attr.Background.R, attr.Background.G, attr.Background.B));
+                            }
                         }
                     }
 

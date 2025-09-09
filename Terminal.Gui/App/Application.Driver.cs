@@ -18,6 +18,15 @@ public static partial class Application // Driver abstractions
     [ConfigurationProperty (Scope = typeof (SettingsScope))]
     public static bool Force16Colors { get; set; }
 
+
+    /// <summary>
+    ///     When true, drivers will avoid emitting background color escape sequences and instead use the terminal's
+    ///     default background (SGR 49). This yields a more palette-native look (similar to Ratatui) and avoids
+    ///     hard overriding terminal themes.
+    /// </summary>
+    [ConfigurationProperty (Scope = typeof (SettingsScope))]
+    public static bool UseDefaultBackground { get; set; } = true;
+
     // BUGBUG: ForceDriver should be nullable.
     /// <summary>
     ///     Forces the use of the specified driver (one of "fake", "ansi", "curses", "net", or "windows"). If not

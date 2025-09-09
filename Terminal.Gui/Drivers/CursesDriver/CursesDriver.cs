@@ -301,21 +301,15 @@ internal class CursesDriver : ConsoleDriver
                         {
                             redrawAttr = attr;
 
-                            output.Append (
-                                           EscSeqUtils.CSI_SetForegroundColorRGB (
-                                                                                  attr.Foreground.R,
-                                                                                  attr.Foreground.G,
-                                                                                  attr.Foreground.B
-                                                                                 )
-                                          );
-
-                            output.Append (
-                                           EscSeqUtils.CSI_SetBackgroundColorRGB (
-                                                                                  attr.Background.R,
-                                                                                  attr.Background.G,
-                                                                                  attr.Background.B
-                                                                                 )
-                                          );
+                            if (Force16Colors) {
+                                output.Append (EscSeqUtils.CSI_SetForegroundColor (attr.Foreground.GetAnsiColorCode ()));
+                                if (Application.UseDefaultBackground) { output.Append (EscSeqUtils.CSI_SetGraphicsRendition(49)); }
+                                else { output.Append (EscSeqUtils.CSI_SetBackgroundColor (attr.Background.GetAnsiColorCode ())); }
+                            } else {
+                                output.Append (EscSeqUtils.CSI_SetForegroundColorRGB (attr.Foreground.R, attr.Foreground.G, attr.Foreground.B));
+                                if (Application.UseDefaultBackground) { output.Append (EscSeqUtils.CSI_SetGraphicsRendition(49)); }
+                                else { output.Append (EscSeqUtils.CSI_SetBackgroundColorRGB (attr.Background.R, attr.Background.G, attr.Background.B)); }
+                            }
                         }
 
                         outputWidth++;

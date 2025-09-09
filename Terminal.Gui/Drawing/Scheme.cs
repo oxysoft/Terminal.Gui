@@ -171,7 +171,7 @@ public record Scheme : IEqualityOperators<Scheme, Scheme, bool>
         {
             return new ()
             {
-                Normal = new (StandardColor.LightBlue, StandardColor.RaisinBlack)
+                Normal = new (StandardColor.Gray, StandardColor.Black)
             };
         }
 
@@ -179,7 +179,7 @@ public record Scheme : IEqualityOperators<Scheme, Scheme, bool>
         {
             return new ()
             {
-                Normal = new (StandardColor.IndianRed, StandardColor.RaisinBlack)
+                Normal = new (StandardColor.BrightRed, StandardColor.Black)
             };
         }
 
@@ -187,7 +187,7 @@ public record Scheme : IEqualityOperators<Scheme, Scheme, bool>
         {
             return new ()
             {
-                Normal = new (StandardColor.LightSkyBlue, StandardColor.OuterSpace)
+                Normal = new (StandardColor.Gray, StandardColor.Black)
             };
         }
 
@@ -195,7 +195,7 @@ public record Scheme : IEqualityOperators<Scheme, Scheme, bool>
         {
             return new ()
             {
-                Normal = new (StandardColor.Charcoal, StandardColor.LightBlue, TextStyle.Bold)
+                Normal = new (StandardColor.White, StandardColor.Black, TextStyle.Bold)
             };
         }
 
@@ -203,7 +203,7 @@ public record Scheme : IEqualityOperators<Scheme, Scheme, bool>
         {
             return new ()
             {
-                Normal = new (StandardColor.CadetBlue, StandardColor.Charcoal)
+                Normal = new (StandardColor.Gray, StandardColor.Black)
             };
         }
 
