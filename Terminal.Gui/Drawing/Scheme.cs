@@ -179,7 +179,7 @@ public record Scheme : IEqualityOperators<Scheme, Scheme, bool>
         {
             return new ()
             {
-                Normal = new (StandardColor.BrightRed, StandardColor.Black)
+                Normal = new (StandardColor.Red, StandardColor.Black)
             };
         }
 
